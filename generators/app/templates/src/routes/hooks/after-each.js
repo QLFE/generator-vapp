@@ -19,7 +19,7 @@ export default {
     // Magic iPhone 微信需要通过加载 iframe 来刷新 title
     if (detect.os.ios && detect.browser.weixin && title) {
       const iframe = document.createElement('iframe');
-      iframe.setAttribute('src', '/favicon.ico');
+      iframe.setAttribute('src', 'static/favicon.ico');
       iframe.style.display = 'none';
       iframe.addEventListener('load', () => {
         setTimeout(() => {

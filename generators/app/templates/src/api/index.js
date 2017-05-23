@@ -15,6 +15,8 @@ function fillMethods(apiObj, urls) {
 
     if (typeof urlVal === 'string') {
       apiObj[urlKey] = assembleHttp(urlVal);
+    } else if (urlVal.url){
+      apiObj[urlKey] = assembleHttp(urlVal);
     } else {
       apiObj[urlKey] = {};
       fillMethods(apiObj[urlKey], urlVal);

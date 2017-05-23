@@ -1,56 +1,30 @@
 <template>
-  <div class="nav-bar-wrapper" :class="appNavClass">
-    <div class="nav-bar-ios" v-if="app === 'IOS'"></div>
+  <div class="nav-bar-wrapper">
     <div class="nav-bar">
-      <div class="nav-bar-back" @click="goBack" v-if="isShowBack"><span></span></div>
-      <div class="nav-bar-title">{{title}}</div>
+      <div class="nav-back" @click="goBack" v-show="isShowBack"><span class="nav-arrow"></span></div>
+      <div class="nav-title">{{title}}</div>
     </div>
   </div>
 </template>
 <script>
-import hybrid from '@/libs/hybrid';
-
 export default {
 
   name: 'nav-bar',
 
-  data() {
-    return {
-      app: hybrid.app
-    };
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+
+    isShowBack: {
+      type: Boolean,
+      default: true
+    }
   },
 
-  computed: {
-    title() {
-      const $route = this.$route;
-      return $route.query.title || $route.meta.title || '金融优助手';
-    },
-    appNavClass() {
-      const {
-        app
-      } = this;
-      const arr = [];
-      if (app !== 'WEB') {
-        arr.push('nav-bar-app');
-      }
-
-      if (app === 'IOS') {
-        arr.push('nav-bar-app-ios');
-      }
-
-      if (app === 'ANDROID') {
-        arr.push('nav-bar-app-android');
-      }
-
-      return arr;
-    },
-    isShowBack() {
-      const {
-        name
-      } = this.$route;
-
-      return (name !== 'home');
-    }
+  data() {
+    return {};
   },
 
   methods: {
@@ -67,7 +41,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #0092ff;
+  background-color: #00de9e;
   color: #fff;
   font-size: 36px;
   z-index: 9999;
@@ -76,43 +50,53 @@ export default {
 
 .nav-bar {
   height: 100px;
+  padding: 0 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 
-.nav-bar-app-ios .nav-bar{
-  height: 44PX;
+.nav-back {
+  flex-shrink: 0;
+  padding: 10px;
+  margin: -10px;
 }
 
-.nav-bar-back{
-  padding: 10px 30PX 10px 20PX;
-  position: absolute;
-  transform: translate(0, -50%);
-  top: 50%;
-  left: 0;
-}
-
-.nav-bar-back span{
-  display: block;
-  width: 12PX;
-  height: 20PX;
-  background: url(./img/back.png) no-repeat center center;
-  background-size: contain;
-}
-
-.nav-bar-title {
-  padding: 0 20PX;
+.nav-title {
   flex: 1;
   text-align: center;
-  font-size: 18PX;
-  font-weight: bold;
 }
 
-.nav-bar-ios {
-  background-color: #0092ff;
-  height: 20PX;
+
+/*左箭头*/
+
+.nav-arrow {
+  display: block;
+  height: 38px;
+  width: 24px;
+  font-size: 0;
+  line-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-arrow:before,
+.nav-arrow:after {
+  content: " ";
+  display: block;
+  border-top: 1px solid #fff;
+  position: absolute;
+  width: 100px;
+  left: 0;
+  top: 50%;
+}
+
+.nav-arrow:before {
+  transform: translate(-50%, -80%) rotate(42deg);
+}
+
+.nav-arrow:after {
+  transform: translate(-50%, -50%) rotate(-42deg);
 }
 
 </style>

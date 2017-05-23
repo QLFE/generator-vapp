@@ -34,6 +34,7 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: true,
-    mock: true // 是否开始数据mock
+    mock: true, // 是否开始数据mock
+    vconsole: false // 开启vconsole
   }
 }

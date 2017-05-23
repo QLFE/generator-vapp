@@ -1,21 +1,4 @@
-# vue-starter
-
-## 简介
-基于 [Vue](https://github.com/vuejs/vue) 的移动端 [SPA](http://baike.baidu.com/item/SPA/17536313) 开发框架。
-涉及的技术栈：
-- MVVM框架：  [Vue](https://github.com/vuejs/vue)
-- 路由管理：  [Vue-Router](https://github.com/vuejs/vue-router)
-- 状态管理： [Vuex](https://github.com/vuejs/vuex)
-- 服务端通信： [Axios](https://github.com/mzabriskie/axios)
-- 组件库：[Mint-ui](https://github.com/ElemeFE/mint-ui)
-工具支持：
-- 代码检测：[ESLint](http://eslint.org/)
-- 构建工具：[Webpack](https://webpack.js.org/)
-- 包管理工具：[Npm](https://www.npmjs.com/)
-- Chrome 插件： [Vue-devtools](https://github.com/vuejs/vue-devtools)
-
 ## 快速开始
-> 需安装 [Node.js](https://nodejs.org/en/), 版本 > 4.0.0
 
 ``` bash
 # 安装依赖
@@ -43,7 +26,7 @@ npm run build --report
 │   ├── api # api 目录
 │   │   ├── index.js # 对外导出
 │   │   ├── url-types.js # 所有的url
-│   │   
+│   │
 │   ├── assets # 资源目录，包括 css、img 等
 │   │   ├── img
 │   │   ├── scss
@@ -92,7 +75,7 @@ export default {
 *  生成接口有两个参数：
 * @param  {Object} params 请求参数
 * @param  {Object} config 请求配置-参见 [axios]
-*/ 
+*/
 import api from '@/api';
 api.user.getProfile(params, config).then((data)=>{
 })
@@ -145,7 +128,7 @@ dev: {
     ├── view1.vue # 页面级组件，放在views目录里
     │   ├── component1.vue # 功能组件，公用的放在 components 目录，否则放在 views 子目录
     │   ├── component2.vue
-    ├── view2.vue    
+    ├── view2.vue
     │   ├── component1.vue
     │   ├── component2.vue
     │
@@ -156,7 +139,7 @@ store 用于处理数据状态读写和同步，以及数据输入输出的格�
 ![](https://vuex.vuejs.org/zh-cn/images/vuex.png)，
 整个store的结构如下：
 ```
-├── store 
+├── store
     ├── index.js # 组装模块并导出 store 的地方
     ├── actions.js # 根级别的 action
     ├── mutations.js # 根级别的 mutation

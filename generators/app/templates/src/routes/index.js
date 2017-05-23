@@ -2,8 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import hooks from './hooks';
 import homeRouter from './home';
-import interestRateRouter from './interest-rate';
-import iframeRouter from './iframe';
+import aboutRouter from './about';
 
 Vue.use(Router);
 
@@ -21,8 +20,7 @@ const router = new Router({
   },
   routes: [
     ...homeRouter,
-    ...interestRateRouter,
-    ...iframeRouter
+    ...aboutRouter
   ]
 });
 

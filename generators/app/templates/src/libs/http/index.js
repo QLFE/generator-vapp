@@ -10,7 +10,7 @@ const instance = axios.create({
 
 // 添加 showLoading 配置项
 // 是否显示请求 loading
-// showLoading(instance);
+showLoading(instance);
 
 // 添加 showDefaultError 配置项
 // 是否默认错误处理

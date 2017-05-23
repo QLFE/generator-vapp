@@ -2,9 +2,6 @@
 const _ = require('lodash');
 const extend = _.merge;
 const Generator = require('yeoman-generator');
-const chalk = require('chalk');
-const yosay = require('yosay');
-const path = require('path');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -21,43 +18,34 @@ module.exports = class extends Generator {
   initializing() {
     this.props = {};
 
-    this.projectRoot = this.destinationPath(this.options.name);
+    this.destinationRoot(this.options.name);
   }
 
   prompting() {
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the ace ' + chalk.red('generator-vapp') + ' generator!'
-    ));
-
     const prompts = [{
       type: 'input',
       name: 'platform',
       message: 'This Project run on PC or mobile?(pc/mob)',
       default: 'mob'
     }, {
+      type: 'confirm',
+      name: 'hybrid',
+      message: 'Do you need hybrid libary?'
+    }, {
+      type: 'confirm',
+      name: 'encrypt',
+      message: 'Do you need encrypt libary'
+    }, {
       name: 'description',
       message: 'Description'
     }, {
       name: 'authorName',
       message: 'Author\'s Name',
-      default: this.user.git.name(),
-      store: true
+      default: this.user.git.name()
     }, {
       name: 'authorEmail',
       message: 'Author\'s Email',
-      default: this.user.git.email(),
-      store: true
-    }, {
-      name: 'authorUrl',
-      message: 'Author\'s Homepage',
-      store: true
-    }, {
-      name: 'keywords',
-      message: 'Package keywords (comma to split)',
-      filter(words) {
-        return words.split(/\s*,\s*/g);
-      }
+      default: this.user.git.email()
     }];
 
     return this.prompt(prompts).then(props => {
@@ -65,44 +53,41 @@ module.exports = class extends Generator {
     });
   }
 
-  _path(subPath){
-    return this.destinationPath(path.join(this.options.name, subPath));
-  }
-
-  _writingPKG() {
-    // Re-read the content at this point because a composed generator might modify it.
-    const currentPkg = this.fs.readJSON(this.destinationPath('package.json'), {});
-
-    const pkg = extend({
-      name: _.kebabCase(this.props.name),
-      version: '0.0.0',
-      description: this.props.description,
-      author: {
-        name: this.props.authorName,
-        email: this.props.authorEmail,
-        url: this.props.authorUrl
-      },
-      keywords: [],
-      devDependencies: {}
-    }, currentPkg);
-
-    // Combine the keywords
-    if (this.props.keywords && this.props.keywords.length) {
-      pkg.keywords = _.uniq(this.props.keywords.concat(pkg.keywords));
-    }
-
-    // Let's extend package.json so we're not overwriting user previous fields
-    this.fs.writeJSON(this.destinationPath('package.json'), pkg);
-  }
-
   writing() {
+    const tplPaths = ['index.html', 'package.json', '.postcssrc.js', 'src/main.js'];
+
     this.fs.copy(
       this.templatePath('**'),
-      this.destinationPath(this.options.name)
+      this.destinationPath(),
+      {
+        globOptions: {
+          dot: true
+        }
+      }
     );
+
+    // this._writingPKG();
+
+    tplPaths.forEach(tplPath => {
+      this.fs.copyTpl(
+        this.templatePath(tplPath),
+        this.destinationPath(tplPath),
+        {
+          title: this.options.name,
+          platform: this.props.platform,
+          name: _.kebabCase(this.options.name),
+          description: this.props.description,
+          author: {
+            name: this.props.authorName,
+            email: this.props.authorEmail
+          }
+        }
+      );
+    });
+
   }
 
   install() {
-    this.installDependencies({ bower: false });
+    // this.installDependencies({ bower: false });
   }
 };
