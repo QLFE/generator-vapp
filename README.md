@@ -1,4 +1,4 @@
-# generator-vapp [![NPM version][npm-image]][https://www.npmjs.com/package/generator-vapp]
+# generator-vapp 
 > A project template based on Vue Start Kit (ES6+, Vue.js, Vue-Router, Vuex, Webpack, Babel)
 
 ## Installation
