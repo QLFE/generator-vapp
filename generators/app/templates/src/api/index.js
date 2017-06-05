@@ -1,5 +1,16 @@
 import http from '@/libs/http';
+import conf from '@/config';
 import urls from './url-type';
+
+/**
+ * 填充 baseUrl
+ *
+ * @param {any} url
+ * @returns
+ */
+function fillBaseUrl(url) {
+  return `${conf.api.baseUrl}${url}`;
+}
 
 /**
  * 填充方法
@@ -15,7 +26,7 @@ function fillMethods(apiObj, urls) {
 
     if (typeof urlVal === 'string') {
       apiObj[urlKey] = assembleHttp(urlVal);
-    } else if (urlVal.url){
+    } else if (urlVal.url) {
       apiObj[urlKey] = assembleHttp(urlVal);
     } else {
       apiObj[urlKey] = {};
@@ -40,6 +51,8 @@ function assembleHttp(urlVal) {
       method: 'post'
     };
   }
+
+  urlVal.url = fillBaseUrl(urlVal.url);
 
   return (params, config) => {
     config = Object.assign({}, defaultOptions, urlVal, config);

@@ -6,6 +6,7 @@ export default (instance) => {
     if (config.showLoading !== false) {
       loading.show();
     }
+
     return config;
   }, (error) => {
     // Do something with request error

@@ -1,4 +1,4 @@
-# generator-vapp 
+# generator-vapp [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 > A project template based on Vue Start Kit (ES6+, Vue.js, Vue-Router, Vuex, Webpack, Babel)
 
 ## Installation
@@ -13,7 +13,7 @@ npm install -g generator-vapp
 Then generate your new project:
 
 ```bash
-yo vapp
+yo vapp [appname]
 ```
 
 ## Getting To Know Yeoman

@@ -1,6 +1,6 @@
-import Vue from 'vue';<% if (platform !== 'pc') { %>
+import Vue from 'vue';
 import FastClick from 'fastclick';
-import 'uzone-flexible';<% } %>
+import 'uzone-flexible';
 import App from './app';
 import router from './routes';
 import store from './store';
@@ -15,10 +15,8 @@ Object.keys(filters).forEach((key, index) => {
 // promise polyfill
 require('es6-promise').polyfill();
 
-<% if (platform !== 'pc') { %>
 // fix 点击延迟
 FastClick.attach(document.body);
-<% } %>
 
 // 挂载 Api, 在组件内可直接 this.$api 访问
 Vue.use(Api);

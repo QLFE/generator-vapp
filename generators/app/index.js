@@ -23,18 +23,8 @@ module.exports = class extends Generator {
 
   prompting() {
     const prompts = [{
-      type: 'input',
-      name: 'platform',
-      message: 'This Project run on PC or mobile?(pc/mob)',
-      default: 'mob'
-    }, {
-      type: 'confirm',
-      name: 'hybrid',
-      message: 'Do you need hybrid libary?'
-    }, {
-      type: 'confirm',
-      name: 'encrypt',
-      message: 'Do you need encrypt libary'
+      name: 'name',
+      message: 'Project Name'
     }, {
       name: 'description',
       message: 'Description'
@@ -46,6 +36,14 @@ module.exports = class extends Generator {
       name: 'authorEmail',
       message: 'Author\'s Email',
       default: this.user.git.email()
+    },{
+      type: 'confirm',
+      name: 'hybrid',
+      message: 'Do you need hybrid libary?'
+    }, {
+      type: 'confirm',
+      name: 'encrypt',
+      message: 'Do you need encrypt libary'
     }];
 
     return this.prompt(prompts).then(props => {
@@ -53,8 +51,37 @@ module.exports = class extends Generator {
     });
   }
 
+  _writingEncrypt() {
+    const tplPaths = ['src/config/encrypt.js', 'src/libs/http/interceptors/encrypt.js'];
+    if (!this.props.encrypt) {
+      tplPaths.forEach(tplPath => {
+        this.fs.delete(tplPath);
+      });
+    }
+  }
+
+  _copyTpl(tplPath) {
+    this.fs.delete(this.destinationPath(tplPath));
+
+    this.fs.copyTpl(
+      this.templatePath(tplPath),
+      this.destinationPath(tplPath),
+      {
+        title: this.options.name,
+        name: _.kebabCase(this.props.name),
+        description: this.props.description,
+        author: {
+          name: this.props.authorName,
+          email: this.props.authorEmail
+        },
+        hybrid: this.props.hybrid,
+        encrypt: this.props.encrypt
+      }
+    );
+  }
+
   writing() {
-    const tplPaths = ['index.html', 'package.json', '.postcssrc.js', 'src/main.js'];
+    const tplPaths = ['index.html', 'package.json', 'static/js/config.js', 'src/libs/http/index.js', 'src/config/index.js'];
 
     this.fs.copy(
       this.templatePath('**'),
@@ -66,25 +93,11 @@ module.exports = class extends Generator {
       }
     );
 
-    // this._writingPKG();
-
     tplPaths.forEach(tplPath => {
-      this.fs.copyTpl(
-        this.templatePath(tplPath),
-        this.destinationPath(tplPath),
-        {
-          title: this.options.name,
-          platform: this.props.platform,
-          name: _.kebabCase(this.options.name),
-          description: this.props.description,
-          author: {
-            name: this.props.authorName,
-            email: this.props.authorEmail
-          }
-        }
-      );
+      this._copyTpl(tplPath);
     });
 
+    this._writingEncrypt();
   }
 
   install() {
