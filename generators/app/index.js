@@ -60,6 +60,15 @@ module.exports = class extends Generator {
     }
   }
 
+  _writingHybrid(){
+    const tplPaths = ['src/libs/hybrid'];
+    if (!this.props.hybrid) {
+      tplPaths.forEach(tplPath => {
+        this.fs.delete(tplPath);
+      });
+    }
+  }
+
   _copyTpl(tplPath) {
     this.fs.delete(this.destinationPath(tplPath));
 
@@ -98,6 +107,7 @@ module.exports = class extends Generator {
     });
 
     this._writingEncrypt();
+    this._writingHybrid();
   }
 
   install() {

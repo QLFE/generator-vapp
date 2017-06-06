@@ -1,5 +1,5 @@
 // local
-var apiPrefix = 'http://192.168.25.116:8090'; // API接口链接
+var apiPrefix = 'http://192.168.25.116:8080'; // API接口链接
 <% if (encrypt) { %>
 // 加密相关参数
 var supportSecurity = false;

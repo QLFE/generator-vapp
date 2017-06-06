@@ -25,8 +25,6 @@ export default (instance) => {
     }
 
     response.data = data;
-
-    console.log('response', response);
     return response;
   }, (error) => {
     // Do something with response error
