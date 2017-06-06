@@ -10,7 +10,7 @@ module.exports = class extends Generator {
 
     this.argument('name', {
       type: String,
-      required: true,
+      required: false,
       description: 'Project name'
     });
   }
@@ -18,7 +18,9 @@ module.exports = class extends Generator {
   initializing() {
     this.props = {};
 
-    this.destinationRoot(this.options.name);
+    if (this.options.name) {
+      this.destinationRoot(this.options.name);
+    }
   }
 
   prompting() {
@@ -36,7 +38,7 @@ module.exports = class extends Generator {
       name: 'authorEmail',
       message: 'Author\'s Email',
       default: this.user.git.email()
-    },{
+    }, {
       type: 'confirm',
       name: 'hybrid',
       message: 'Do you need hybrid libary?'
@@ -60,7 +62,7 @@ module.exports = class extends Generator {
     }
   }
 
-  _writingHybrid(){
+  _writingHybrid() {
     const tplPaths = ['src/libs/hybrid'];
     if (!this.props.hybrid) {
       tplPaths.forEach(tplPath => {
@@ -111,6 +113,10 @@ module.exports = class extends Generator {
   }
 
   install() {
-    // this.installDependencies({ bower: false });
+    this.installDependencies({ bower: false });
+  }
+
+  end() {
+    this.log('Project created completely');
   }
 };
