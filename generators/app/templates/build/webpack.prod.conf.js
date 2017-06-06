@@ -78,26 +78,34 @@ var webpackConfig = merge(baseWebpackConfig, {
     // Inline Manifest Source
     new HtmlWebpackInlineSourcePlugin(),
 
+    // Move common modules into the parent chunk
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ["app"],
+      // (choose the chunks, or omit for all chunks)
+
+      children: true,
+      // (select all children of chosen chunks)
+
+      async: true,
+      // (create an async commons chunk)
+
+      minChunks: 2,
+      // (3 children must share the module before it's moved)
+    }),
+
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
-      // minChunks: function (module, count) {
-      //   // any required modules inside node_modules are extracted to vendor
-      //   return (
-      //     module.resource &&
-      //     /\.js$/.test(module.resource) &&
-      //     module.resource.indexOf(
-      //       path.join(__dirname, '../node_modules')
-      //     ) === 0
-      //   )
-      // }
+      name: 'vendor',
+      minChunks: Infinity
     }),
+
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
     }),
+
     // copy custom static assets
     new CopyWebpackPlugin([
       {

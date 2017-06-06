@@ -28,7 +28,7 @@ export default {
     title(){
       const route = this.$route;
 
-      return (route.meta && route.meta.title) || ''
+      return (route.meta && route.meta.title) || '';
     }
   },
 
