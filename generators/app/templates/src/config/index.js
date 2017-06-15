@@ -1,12 +1,14 @@
-import api from './api';<% if (encrypt) { %>
-import encrypt from './encrypt';<% } %>
+import eventBusConf from './event-bus';
+import apiConf from './api';<% if (encrypt) { %>
+import encryptConf from './encrypt';<% } %>
 
-export default {
+// APP 配置
+export const appConf = {
   version: '1.0.0',
   channel: 'u-friend-invitation',
   channelNo: 'u-friend-invitation',
   productNo: 'uzone',
-
-  api, // api 相关配置<% if (encrypt) { %>
-  encrypt // 加密相关配置<% } %>
 };
+
+// 模块加载
+export { apiConf,<% if (encrypt) { %> encryptConf, <% } %>eventBusConf };

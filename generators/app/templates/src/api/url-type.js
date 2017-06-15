@@ -6,6 +6,7 @@
  * Object：{ // axios config options
  *  url: '',
  *  method: '',// get/post/put/delete, 为URL的请求方法，不写默认为post
+ *  baseUrl: ''
  * }
  */
 export default {

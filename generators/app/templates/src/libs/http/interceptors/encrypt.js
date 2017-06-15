@@ -1,7 +1,6 @@
 import Encrypt from 'uzone-encrypt';
-import conf from '@/config';
+import { encryptConf } from '@/config';
 
-const encryptConf = conf.encrypt;
 const encrypt = new Encrypt(encryptConf);
 
 export default (instance) => {

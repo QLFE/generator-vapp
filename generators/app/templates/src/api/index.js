@@ -1,15 +1,22 @@
+import deepMerge from 'deepmerge';
 import http from '@/libs/http';
-import conf from '@/config';
+import { apiConf } from '@/config';
 import urls from './url-type';
 
 /**
  * 填充 baseUrl
  *
  * @param {any} url
+ * @param {any} baseUrl
  * @returns
  */
-function fillBaseUrl(url) {
-  return `${conf.api.baseUrl}${url}`;
+function fillBaseUrl(url, baseUrl) {
+  if (url.indexOf('//') > -1) {
+    return url;
+  }
+  baseUrl = baseUrl || apiConf.baseUrl;
+
+  return `${baseUrl}${url}`;
 }
 
 /**
@@ -41,10 +48,6 @@ function fillMethods(apiObj, urls) {
  * @return {[type]}        [description]
  */
 function assembleHttp(urlVal) {
-  const defaultOptions = {
-    method: 'post'
-  };
-
   if (typeof urlVal === 'string') {
     urlVal = {
       url: urlVal,
@@ -52,10 +55,11 @@ function assembleHttp(urlVal) {
     };
   }
 
-  urlVal.url = fillBaseUrl(urlVal.url);
+  urlVal.url = fillBaseUrl(urlVal.url, urlVal.baseUrl);
 
   return (params, config) => {
-    config = Object.assign({}, defaultOptions, urlVal, config);
+    const { defaultConf, http } = this;
+    config = deepMerge.all([defaultConf, urlVal, config]);
 
     if (['post', 'put', 'patch'].indexOf(config.method) > -1) {
       config.data = params;
@@ -73,6 +77,12 @@ function assembleHttp(urlVal) {
 class Api {
   constructor() {
     this.http = http;
+    this.defaultConf = {
+      method: 'post',
+      data: {
+
+      }
+    }
   }
   /**
    * 作为Vue插件进行安装，挂载到Vue.prototype

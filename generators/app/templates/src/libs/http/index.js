@@ -1,12 +1,12 @@
 import axios from 'axios';
-import config from '@/config';<% if (hybrid) { %>
+import { apiConf } from '@/config';<% if (hybrid) { %>
 import hybrid from '@/libs/hybrid';<% } %>
 import showLoading from './interceptors/show-loading';
 import errorHandler from './interceptors/error-handler';<% if (encrypt) { %>
 import encrypt from './interceptors/encrypt';<% } %>
 
 const instance = axios.create({
-  timeout: config.api.timeout
+  timeout: apiConf.timeout
 });
 
 // 添加 showLoading 配置项
