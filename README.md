@@ -13,10 +13,10 @@ npm install -g generator-vapp
 Then generate your new project:
 
 ```bash
-// 在当前目录生成项目
+// Generate the project in the current directory
 yo vapp
 
-// 创建dirname目录，在该目录下生成项目
+// Create the dirname directory and generate the project under the directory
 yo vapp [dirname]
 ```
 

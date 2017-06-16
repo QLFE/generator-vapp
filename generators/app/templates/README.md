@@ -35,6 +35,7 @@ npm run build --report
 │   ├── config #配置项
 │   ├── libs # 第三方及 utils 工具库
 │   ├── routes # 页面路由
+│   ├── service # 页面服务
 │   ├── store # 状态管理
 │   ├── views # 页面view
 │   │   ├── home # home页
