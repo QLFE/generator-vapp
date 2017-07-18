@@ -77,7 +77,7 @@ module.exports = class extends Generator {
       this.fs.delete(tplPath);
       this.fs.copy(
         this.templatePath(tplPath),
-        this.destinationPath(tplPath)
+        this.destinationPath('.gitignore')
       );
     });
   }
