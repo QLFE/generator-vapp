@@ -75,7 +75,10 @@ module.exports = class extends Generator {
     const tplPaths = ['gitignore'];
     tplPaths.forEach(tplPath => {
       this.fs.delete(tplPath);
-      this.copy('gitignore', '.gitignore');
+      this.fs.copy(
+        this.templatePath(tplPath),
+        this.destinationPath(tplPath)
+      );
     });
   }
 
