@@ -1,4 +1,4 @@
-import eventBusConf from './event-bus';
+import eventConf from './event';
 import apiConf from './api';<% if (encrypt) { %>
 import encryptConf from './encrypt';<% } %>
 
@@ -11,4 +11,4 @@ export const appConf = {
 };
 
 // 模块加载
-export { apiConf,<% if (encrypt) { %> encryptConf, <% } %>eventBusConf };
+export { apiConf,<% if (encrypt) { %> encryptConf, <% } %>eventConf };

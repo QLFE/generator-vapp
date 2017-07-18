@@ -71,6 +71,14 @@ module.exports = class extends Generator {
     }
   }
 
+  _writingGitignore() {
+    const tplPaths = ['gitignore'];
+    tplPaths.forEach(tplPath => {
+      this.fs.delete(tplPath);
+      this.copy('gitignore', '.gitignore');
+    });
+  }
+
   _copyTpl(tplPath) {
     this.fs.delete(this.destinationPath(tplPath));
 
@@ -110,6 +118,7 @@ module.exports = class extends Generator {
 
     this._writingEncrypt();
     this._writingHybrid();
+    this._writingGitignore();
   }
 
   install() {

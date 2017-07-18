@@ -1,7 +1,6 @@
 import deepMerge from 'deepmerge';
 import http from '@/libs/http';
 import { apiConf } from '@/config';
-import auth from '@/service/auth';
 import urls from './url-type';
 
 const defaultConf = {
@@ -50,10 +49,6 @@ function assembleHttp(urlVal) {
     } else {
       config.params = params;
     }
-
-    config.headers = {
-      token: auth.getToken()
-    };
 
     return http(config).then(response => response.data);
   };
