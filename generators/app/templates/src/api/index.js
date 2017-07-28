@@ -42,12 +42,12 @@ function assembleHttp(urlVal) {
   urlVal.url = fillBaseUrl(urlVal.url, urlVal.baseUrl);
 
   return (params = {}, config = {}) => {
-    config = deepMerge.all([defaultConf, urlVal, config || {}]);
+    config = deepMerge.all([{}, defaultConf, urlVal, config || {}], { clone: true });
 
     if (['post', 'put', 'patch'].indexOf(config.method) > -1) {
-      config.data = params;
+      config.data = Object.assign(config.data, params);
     } else {
-      config.params = params;
+      config.params = Object.assign(config.params, params);
     }
 
     return http(config).then(response => response.data);

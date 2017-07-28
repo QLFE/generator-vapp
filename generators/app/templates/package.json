@@ -21,7 +21,7 @@
     "vuex": "^2.2.1",
     "uzone-flexible": "^0.1.0",
     "uzone-hybrid": "^0.1.0",
-    "uzone-encrypt": "^1.0.1"
+    "uzone-sign": "^1.0.1",
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

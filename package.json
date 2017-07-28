@@ -1,6 +1,6 @@
 {
   "name": "generator-vapp",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A project template based on Vue Start Kit (ES6+, Vue.js, Vue-Router, Vuex, Webpack, Babel)",
   "homepage": "",
   "author": {

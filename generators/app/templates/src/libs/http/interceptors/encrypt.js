@@ -1,4 +1,4 @@
-import Encrypt from 'uzone-encrypt';
+import Encrypt from 'uzone-sign';
 import { encryptConf } from '@/config';
 
 const encrypt = new Encrypt(encryptConf);
@@ -14,23 +14,3 @@ export default (instance) => {
   }, (error) => {
 
   });
-
-  // Add a response interceptor
-  instance.interceptors.response.use((response) => {
-    let data = response.data;
-    if (encryptConf.supportSecurity && data.data) {
-      data = encrypt.unWrapWithRSA(data.data);
-      data = data ? JSON.parse(data) : null;
-    }
-
-    response.data = data;
-    return response;
-  }, (error) => {
-    // Do something with response error
-    if (error && error.config && error.config.showLoading !== false) {
-
-    }
-
-    return Promise.reject(error);
-  });
-};

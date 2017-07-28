@@ -36,6 +36,8 @@ export default {
 
 </script>
 <style lang="scss" scoped>
+@import '../../assets/scss/function';
+
 .nav-bar-wrapper {
   position: fixed;
   top: 0;
@@ -71,32 +73,11 @@ export default {
 /*左箭头*/
 
 .nav-arrow {
-  display: block;
-  height: 38px;
-  width: 24px;
-  font-size: 0;
-  line-height: 0;
-  position: relative;
-  overflow: hidden;
+  @include v-arrow('left', 2px, 25px);
 }
 
-.nav-arrow:before,
-.nav-arrow:after {
-  content: " ";
-  display: block;
-  border-top: 1px solid #fff;
-  position: absolute;
-  width: 100px;
-  left: 0;
-  top: 50%;
-}
-
-.nav-arrow:before {
-  transform: translate(-50%, -80%) rotate(42deg);
-}
-
-.nav-arrow:after {
-  transform: translate(-50%, -50%) rotate(-42deg);
+.nav-arrow:active {
+  opacity: 0.8;
 }
 
 </style>
