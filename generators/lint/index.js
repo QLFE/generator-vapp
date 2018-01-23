@@ -9,6 +9,7 @@ module.exports = class extends Generator {
     this.argument('generateInto', {
       type: String,
       required: false,
+      default: '',
       description: 'Relocate the location of the generated files.'
     });
   }
@@ -22,7 +23,7 @@ module.exports = class extends Generator {
       'lint-staged': {
         'src/**/*.{js,vue}': ['eslint --fix', 'git add']
       },
-      dev: {
+      devDependencies: {
         'eslint-config-qlfe': '^0.1.6',
         eslint: '^4.15.0',
         'eslint-friendly-formatter': '^3.0.0',
