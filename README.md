@@ -10,7 +10,7 @@ npm install -g yo
 npm install -g generator-vapp
 ```
 
-Then generate your new project:
+- generate your new project:
 
 ```bash
 // Generate the project in the current directory
@@ -18,6 +18,16 @@ yo vapp
 
 // Create the dirname directory and generate the project under the directory
 yo vapp [dirname]
+```
+
+- generate lint files:
+
+```bash
+// Generate the files in the current directory
+yo vapp:lint
+
+// generate the files under the directory
+yo vapp:lint [dirname]
 ```
 
 ## Getting To Know Yeoman

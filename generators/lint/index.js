@@ -1,6 +1,4 @@
 'use strict';
-const _ = require('lodash');
-const extend = _.merge;
 const Generator = require('yeoman-generator');
 
 module.exports = class extends Generator {
@@ -8,21 +6,32 @@ module.exports = class extends Generator {
     // Calling the super constructor is important so our generator is correctly set up
     super(args, opts);
 
-    this.option('generateInto', {
+    this.argument('generateInto', {
       type: String,
       required: false,
-      default: '',
-      desc: 'Relocate the location of the generated files.'
+      description: 'Relocate the location of the generated files.'
     });
   }
 
   writing() {
     const pkgJson = {
       scripts: {
-        precommit: 'lint-staged'
+        precommit: 'lint-staged',
+        lint: 'eslint --ext .js,.vue src'
       },
       'lint-staged': {
-        'src/**/*.js': ['eslint --fix', 'git add']
+        'src/**/*.{js,vue}': ['eslint --fix', 'git add']
+      },
+      dev: {
+        'eslint-config-qlfe': '^0.1.6',
+        eslint: '^4.15.0',
+        'eslint-friendly-formatter': '^3.0.0',
+        'eslint-loader': '^1.7.1',
+        'eslint-plugin-vue': '^4.0.0',
+        'babel-eslint': '^8.2.1',
+        'eslint-plugin-import': '^2.8.0',
+        husky: '^0.14.3',
+        'lint-staged': '^6.0.0'
       }
     };
 
@@ -32,8 +41,8 @@ module.exports = class extends Generator {
     );
 
     this.fs.copy(
-      this.templatePath('eslint.js'),
-      this.destinationPath(this.options.generateInto, '.eslint.js')
+      this.templatePath('eslintrc.js'),
+      this.destinationPath(this.options.generateInto, '.eslintrc.js')
     );
 
     this.fs.copy(
@@ -43,7 +52,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall(['eslint', 'eslint-plugin-vue', 'babel-eslint', 'eslint-config-qlfe', 'husky', 'lint-staged'], { 'save-dev': true });
+    this.installDependencies({ bower: false });
   }
 
   end() {
